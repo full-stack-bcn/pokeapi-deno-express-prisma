@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "start": "deno run --allow-read --allow-env --allow-net server.ts",
+    "prisma": "deno run --allow-all npm:prisma@^4.5",
+    "download-data": "rm -rf data && deno run --allow-all npm:degit PokeAPI/pokeapi/data/v2/csv data"
+  }
+}

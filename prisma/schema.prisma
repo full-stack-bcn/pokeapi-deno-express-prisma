@@ -1,0 +1,72 @@
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["deno"]
+  output = "../generated/client"
+}
+
+enum Color {
+  BLACK
+  BLUE
+  BROWN
+  GRAY
+  GREEN
+  PINK
+  PURPLE
+  RED
+  WHITE
+  YELLOW
+}
+
+enum Habitat {
+  CAVE
+  FOREST
+  GRASSLAND
+  MOUNTAIN
+  RARE
+  ROUGH_TERRAIN
+  SEA
+  URBAN
+  WATERS_EDGE
+}
+
+enum Shapes {
+  BALL
+  SQUIGGLE
+  FISH
+  ARMS
+  BLOB
+  UPRIGHT
+  LEGS
+  QUADRUPED
+  WINGS
+  TENTACLES
+  HEADS
+  HUMANOID
+  BUG_WINGS
+  ARMOR
+}
+
+model Species {
+  id         Int       @id
+  identifier String    @unique
+  color      Color
+  habitat    Habitat
+  shape      Shapes
+  pokemons   Pokemon[]
+}
+
+model Pokemon {
+  id             Int     @id
+  speciesId      Int
+  species        Species @relation(fields: [speciesId], references: [id])
+  height         Int
+  weight         Int
+  baseExperience Int
+  order          Int
+  isDefault      Boolean
+}
